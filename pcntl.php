@@ -45,6 +45,7 @@ if ($child1 != 0) {
     } else {
 		pcntl_setpriority(5);
 		echo "Child2 waiting for SIGHUP\n";
+		pcntl_sigprocmask(SIG_BLOCK, array(SIGHUP));
 		while (true) {
 			pcntl_sigwaitinfo(array(SIGHUP));
 			echo "Child2 has been activated\n";
@@ -56,6 +57,7 @@ if ($child1 != 0) {
 } else {
 	pcntl_setpriority(5);
     echo "Child1 waiting for SIGHUP\n";
+    pcntl_sigprocmask(SIG_BLOCK, array(SIGHUP));
     while (true) {
 		pcntl_sigwaitinfo(array(SIGHUP));
 		echo "Child1 has been activated\n";
